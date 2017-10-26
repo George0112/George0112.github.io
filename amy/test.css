@@ -1,0 +1,73 @@
+body{
+	background-image: url("3-3.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	/*background-position: center;*/
+}
+
+.alpha{
+	height:100vh;
+	background-color: rgba(255,220,255,0.5);
+
+}
+
+.clear{
+	margin: 0PX 0PX 0PX 0PX;
+}
+.box{
+	height:40vh;
+	width:15vw;
+	background-color: rgba(255,225,255,0.4);
+	margin-top: 6.6vh;
+	margin-left: 8vw;
+	display: inline-block;
+	border-radius: 20PX;
+	/*transition: transform 1s,background-color 1s;*/
+
+}
+.box:hover{
+	/*background-color: rgba(210,10,20,0.2);*/
+	/*transform: rotate(360deg) scale(1.2);*/
+	animation: myshake 0.1s infinite;
+}
+
+@keyframes myshake{
+	0%{
+	transform: rotate(3deg) scale(1.05);
+	}
+	25%{
+	transform: rotate(0deg) ;
+	background-color: rgba(210,10,20,0.2);
+	}
+	50%{
+	transform: rotate(-3deg) scale(1.05);
+	background-color: rgba(10,210,20,0.2);
+	}
+	75%{
+	transform: rotate(0deg);
+	background-color: rgba(10,10,200,0.2);
+	}
+}
+.pic{
+	width: 200px;
+	position: fixed;
+	margin-left: 25px;
+	margin-top: 50px;
+}
+.pics{
+	width: 160px;
+	position: fixed;
+	margin-left: 45px;
+	margin-top: 80px;
+}
+.text{
+	font-size: 40px;
+	width:15vw;
+	height:7vh;
+	background-color:rgba(0,0,0,0.6);
+	position: absolute;
+	margin-top: 33vh;
+	text-align: center;
+	border-radius: 0px 0px 15px 15px;
+	color: white; 
+}
