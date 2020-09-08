@@ -11,7 +11,7 @@ var GameScene = new Phaser.Class({
     },
 
     preload: function(){
-        this.load.image('home', 'assets/imac/home.jpg');
+        this.load.image('home', 'assets/home.jpg');
         this.load.image('Q1-1', 'assets/Q1-1.jpg');
         this.load.image('Q1-2', 'assets/Q1-2.jpg');
         this.load.image('Q1-text-1', 'assets/Q1-text-1.png');
