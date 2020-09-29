@@ -69,6 +69,8 @@ var GameScene = new Phaser.Class({
 
         this.points = [];
 
+        this.cameras.main.backgroundColor.setTo(255,255,255);
+
         // Home page
         this.home = this.add.image(screenWidth/2, screenHeight/2, 'home').setDisplaySize(screenWidth, screenHeight);
         fullScreenButton = this.add.image(1820, 100, 'fullscreen-button');
