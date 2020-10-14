@@ -107,7 +107,7 @@ var GameScene = new Phaser.Class({
 
     create: function(){
 
-        this.points = [];
+        this.points = [null, null, null, null, null, null, null];
 
         this.cameras.main.backgroundColor.setTo(255,255,255);
 

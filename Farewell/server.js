@@ -29,13 +29,15 @@ app.get('/', function (req, res) {
 });
 
 app.post('/points', (req, res) =>{
-  console.log(req.body);
-  sql.query("INSERT INTO score (? ? ? ? ? ? ?) VALUES ?", req.body.points, (err, res)=>{
-    if (err) err;
-    console.log("Number of records inserted: " + result.affectedRows);
+  console.log(req.body.points);
+  sql.query("INSERT INTO score (Q1, `Q1.5`, Q2, Q3, Q4, Q5, Q6) VALUES ?", [[req.body.points]], (err, res)=>{
+    if (err) console.log(err);
+	console.log(res);
   });
+  return res.send('ok');
 })
 
-app.listen(8181, () => {
-  console.log('Server listening on http://localhost:8080');
+const port = 8181
+app.listen(port, () => {
+  console.log('Server listening on http://localhost:'+port);
 });
