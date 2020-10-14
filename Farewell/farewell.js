@@ -309,6 +309,16 @@ var GameScene = new Phaser.Class({
         })
 
         this.confirm.on('pointerup', ()=>{
+            axios({
+                method: 'post',
+                url: '/points',
+                data: {
+                  points: this.points
+                }
+              })
+              .then(function (response) {
+                console.log(response);
+              })
             this.confirm.disableInteractive();
             this.confirm.setAlpha(0);
             this.finish.setAlpha(1);       
