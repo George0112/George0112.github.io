@@ -264,7 +264,9 @@ var GameScene = new Phaser.Class({
             startButton.setVisible(false);
             blackStartButton.setVisible(false);
             this.instructionTimeline.play();
-            // this.finishTimeline.play();
+            this.stop.setAlpha(1);
+            this.hover(this.stop, this.stop_black);
+            this.stop.setInteractive();
             this.instructionTimeline.on('complete', ()=>{
                 this.instruction.setInteractive();
                 this.home_Q1.setInteractive();
@@ -286,9 +288,6 @@ var GameScene = new Phaser.Class({
             }
             this.Q1Timeline.play();
             this.Q1Timeline.on('complete', ()=>{
-                this.stop.setAlpha(1);
-                this.hover(this.stop, this.stop_black);
-                this.stop.setInteractive();
                 this.Q1_but_1.setInteractive();
                 this.Q1_but_2.setInteractive();
             })
@@ -296,6 +295,13 @@ var GameScene = new Phaser.Class({
 
         // Stop game
         this.stop.on('pointerup', ()=>{
+            console.log('stop pointer up');
+            this.confirm.setAlpha(1);
+            this.close.setAlpha(1);
+            this.close.setInteractive();
+            this.confirm.setInteractive();
+        })        
+        this.stop_black.on('pointerup', ()=>{
             console.log('stop pointer up');
             this.confirm.setAlpha(1);
             this.close.setAlpha(1);
@@ -341,6 +347,7 @@ var GameScene = new Phaser.Class({
             this.Q1TransTimeline.play();
             this.Q1TransTimeline.on('complete', ()=>{
                 this.Q1_Q2.setInteractive();
+                this.blackStop();
             })
         })
 
@@ -370,9 +377,6 @@ var GameScene = new Phaser.Class({
             this.Q1_5_but_black_1.setVisible(false);
             this.Q1_5_but_black_2.setVisible(false);
             this.Q1_5TransTimeline.play();
-            this.Q1_5TransTimeline.on('complete', ()=>{
-                this.Q1_Q2.setInteractive();
-            })
         })
         this.Q1_5_but_2.on('pointerup', ()=>{
             this.points[1] = -1;
@@ -381,9 +385,10 @@ var GameScene = new Phaser.Class({
             this.Q1_5_but_black_1.setVisible(false);
             this.Q1_5_but_black_2.setVisible(false);
             this.Q1_5TransTimeline.play();
-            this.Q1_5TransTimeline.on('complete', ()=>{
-                this.Q1_Q2.setInteractive();
-            })
+        })
+        this.Q1_5TransTimeline.on('complete', ()=>{
+            this.Q1_Q2.setInteractive();
+            this.blackStop();
         })
 
         // Q1 trans to Q2
@@ -392,6 +397,7 @@ var GameScene = new Phaser.Class({
             this.Q2Timeline.on('complete', ()=>{
                 this.Q2_but_1.setInteractive();
                 this.Q2_but_2.setInteractive();
+                this.whiteStop();
             });
         })
 
@@ -416,6 +422,7 @@ var GameScene = new Phaser.Class({
         })
         this.Q2TransTimeline.on('complete', ()=>{
             this.Q2_Q3.setInteractive();
+            this.blackStop();
         })
 
         // Q2 trans to Q3
@@ -424,6 +431,7 @@ var GameScene = new Phaser.Class({
             this.Q3Timeline.on('complete', ()=>{
                 this.Q3_but_1.setInteractive();
                 this.Q3_but_2.setInteractive();
+                this.whiteStop();
             })
         })
 
@@ -515,6 +523,7 @@ var GameScene = new Phaser.Class({
         })
         this.Q5TransTimeline.on('complete', ()=>{
             this.Q5Q6Q7.setInteractive();
+            this.blackStop();
         })
 
         // Q5 trans to Q6
@@ -524,6 +533,7 @@ var GameScene = new Phaser.Class({
                 this.Q6_but_1.setInteractive();
                 this.Q6_but_2.setInteractive();
                 this.Q6_but_3.setInteractive();
+                this.whiteStop();
             })
             this.Q5Q6Q7.disableInteractive();
         })
@@ -598,6 +608,7 @@ var GameScene = new Phaser.Class({
                 completeDelay: 0,
             })
 
+            this.blackStop();
             setTimeout(()=>{
                 this.Q7.setInteractive();
             }, 2000)
@@ -700,6 +711,7 @@ var GameScene = new Phaser.Class({
                     clearTimeout(this.restartTimer);
                     this.scene.restart();
                 })
+                this.whiteStop();
             })
             this.restartTimer = setTimeout(() => {
                 this.scene.restart();
@@ -1310,6 +1322,29 @@ var GameScene = new Phaser.Class({
         origin.on('pointerout', ()=>{
             hover.setVisible(false);
         })
+    },
+
+    cancelHover: function(origin, hover){
+        origin.removeListener('pointerover', this.origin, this)
+        origin.removeListener('pointerout', this.origin, this)
+    },
+
+    whiteStop: function(){
+        this.cancelHover(this.stop_black, this.stop);
+        this.stop_black.setVisible(false);
+        this.stop_black.disableInteractive();
+        this.stop.setVisible(true);
+        this.hover(this.stop, this.stop_black);
+        this.stop.setInteractive();
+    },
+    
+    blackStop: function(){
+        this.cancelHover(this.stop, this.stop_black);
+        this.stop.setVisible(false);
+        this.stop.disableInteractive();
+        this.stop_black.setVisible(true);
+        this.hover(this.stop_black, this.stop);
+        this.stop_black.setInteractive();
     }
 });
 
